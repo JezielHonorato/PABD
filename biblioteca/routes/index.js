@@ -1,33 +1,73 @@
 var express = require('express');
 var router = express.Router();
-let db = require('../utils/db'); //trazer o arquivo banco de dados
+let db = require('../utils/db');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-//render = renderizador, joga pra uma view
-//router = rota; tipo get
-//requisição e resposta
-
-router.get('/listar', function(req, res) { //get = exibir
-  let cmd = 'SELECT IdAutor, NoAutor, NoNacionalidade '
-  cmd = cmd + 'FROM tbAutor as a INNER JOIN TbNacionalidade as n ' 
-  cmd = cmd + 'ON a.IdNacionalidade = n.IdNacionalidade ORDER BY NoAutor;' 
-
-  db.query( cmd, [], function(erro, listagem){ //
-    if(erro){ //se der erro, manda o erro na resposta
-      res.send(erro)
-    }
-    res.render('autores-lista', {resultado: listagem}); //qual view quero renderizar?
-
-  })
+//cadastro espécie-----------------------------------------------------
+router.get('/cadastro-especie', function(req, res){
+  res.render('cadastroEspecie');
 });
 
-router.get('/add', function(req, res) {
-    res.render('autores-add', {}); //qual view quero renderizar
+router.get('/listar-especie', function(req, res) {
+  let cmd = 'SELECT * FROM tbespecie ORDER BY nomeespecie';
+  db.query(cmd, [], function(erro, listagem){
+    if (erro){
+      res.send(erro);
+    }
+    /* Criaremos a view autores-lista.ejs no próximo slide*/
+    res.render('listar-especie', {resultado: listagem});
   });
+});
 
+//cadastro função-------------------------------------------------------
+router.get('/cadastro-funcao', function(req, res){
+  res.render('cadastroFuncao');
+});
+
+router.get('/listar-funcao', function(req, res) {
+  let cmd = 'SELECT * FROM tbfuncao ORDER BY nomefuncao';
+  db.query(cmd, [], function(erro, listagem){
+    if (erro){
+      res.send(erro);
+    }
+    /* Criaremos a view autores-lista.ejs no próximo slide*/
+    res.render('listar-funcao', {resultado: listagem});
+  });
+});
+
+
+//cadastro cliente------------------------------------------------------
+router.get('/cadastro-cliente', function(req, res){
+  res.render('cadastroCliente');
+})
+
+//cadastro avaliação--------------------------------------------------
+router.get('/cadastro-avaliacao', function(req, res){
+  res.render('cadastroAvaliacao');
+});
+
+//cadastro animatronics--------------------------------------------------
+router.get('/cadastro-animatronic', function(req, res){
+  res.render('cadastroAnimatronic');
+});
+
+router.get('/listar-animatronic', function(req, res) {
+  let cmd = 'SELECT idanimatronic, nomeanimatronic, nomeespecie, nomefuncao FROM tbanimatronic AS a ';
+  cmd += 'INNER JOIN tbfuncao As f ON f.idfuncao = a.idfuncao ';
+  cmd += 'INNER JOIN tbespecie As e ON e.idespecie = a.idespecie ';
+  cmd += 'ORDER BY nomeanimatronic';
+
+  db.query(cmd, [], function(erro, listagem){
+    if (erro){
+      res.send(erro);
+    }
+    /* Criaremos a view autores-lista.ejs no próximo slide*/
+    res.render('listar-animatronic', {resultado: listagem});
+  });
+});
 
 module.exports = router;
