@@ -56,10 +56,7 @@ router.get('/cadastro-animatronic', function(req, res){
 });
 
 router.get('/listar-animatronic', function(req, res) {
-  let cmd = 'SELECT idanimatronic, nomeanimatronic, nomeespecie, nomefuncao FROM tbanimatronic AS a ';
-  cmd += 'INNER JOIN tbfuncao As f ON f.idfuncao = a.idfuncao ';
-  cmd += 'INNER JOIN tbespecie As e ON e.idespecie = a.idespecie ';
-  cmd += 'ORDER BY nomeanimatronic';
+  let cmd = 'SELECT idanimatronic, nomeanimatronic, nomeespecie, nomefuncao FROM tbanimatronic AS a INNER JOIN tbfuncao As f ON f.idfuncao = a.idfuncao INNER JOIN tbespecie As e ON e.idespecie = a.idespecie ORDER BY nomeanimatronic';
 
   db.query(cmd, [], function(erro, listagem){
     if (erro){
