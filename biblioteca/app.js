@@ -7,7 +7,10 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var autoresRouter = require('./routes/autores');
+<<<<<<< HEAD
 var NacionalidadesRouter = require('./routes/nacionalidades');
+=======
+>>>>>>> 42249f147f206daa8a751597c2c5c5c1221f60ef
 
 var app = express();
 
@@ -24,7 +27,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/autores', autoresRouter);
+<<<<<<< HEAD
 app.use('/nacionalidades', NacionalidadesRouter);
+=======
+>>>>>>> 42249f147f206daa8a751597c2c5c5c1221f60ef
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
