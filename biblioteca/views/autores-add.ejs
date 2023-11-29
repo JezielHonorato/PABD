@@ -8,15 +8,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
       $(document).ready(function () {
-        function getNacionalidade() {      /* Função para obter as nacionalidades da rota*/
+        function getNacionalidade() {      
           $.ajax({
-            url: "/nacionalidades/listar", /* Chamada da rota*/
-            type: "GET",                   /* Método usado pela rota*/
-            dataType: "json",              /* Tipo de dado retornado pela rota*/
-            success: function (res) {      /* Inclui os elementos do <select>*/
+            url: "/nacionalidades/listar",
+            type: "GET",                  
+            dataType: "json",              
+            success: function (res) {      
               $("#inputNacionalidade").html("<option selected>(Informe)</option>");
               $.each(res.resultado, function (key, value) {
-                $("#inputNacionalidade").(                /* Inclui os elementos vindos da rota */
+                $("#inputNacionalidade").append(               
                   "<option value=" + value.IdNacionalidade + ">" + value.NoNacionalidade + "</option>"
                 );
               });

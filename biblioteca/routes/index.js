@@ -9,11 +9,11 @@ router.get('/', function(req, res, next) {
 
 /* Outras rotas definidas anteriormente... */
 router.get('/autores/listar', function(req, res) {
-  db.query('SELECT * FROM TbAutor', [], function(erro, listagem){
+  db.query('SELECT IdAutor, NoAutor, NoNacionalidade FROM TbAutor INNER JOIN tbNacionalidade ON TbAutor.IdNacionalidade = tbNacionalidade.IdNacionalidade;', [], function(erro, listagem){
     if (erro){
       res.send(erro);
     }
-    res.send(listagem);
+    res.render("autores-lista", {resultado: listagem});
   });
 });
 
