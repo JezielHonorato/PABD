@@ -20,4 +20,19 @@ router.get('/add', function(req, res) {
   res.render('autores-add')
 });
 
+router.post('/add', function(req, res) {
+  let nome = req.body.name
+  let nacionalidade = req.body.nacionalidade
+
+  let cmd = 'INSERT INTO TbAutor (NoAutor, TdNacionalidade) VALUES (?, ?)';
+  db.query(cmd, [nome, nacionalidade], function(erro){
+
+  if (erro){
+    res.send(erro);
+  }
+
+  res.redirect('/autores/listar');
+  });
+});
+
 module.exports = router;
