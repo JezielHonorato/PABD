@@ -2,17 +2,13 @@ let express = require('express');
 let db = require('../utils/db')
 let router = express.Router();
 
+/* Outras rotas definidas anteriormente... */
 router.get('/listar', function(req, res) {
-  let cmd = 'SELECT IdAutor, NoAutor, NoNacionalidade';
-  cmd += ' FROM TbAutor AS a INNER JOIN TbNacionalidade AS n';
-  cmd += ' ON a.IdNacionalidade = n.IdNacionalidade ORDER BY NoAutor';
-  db.query(cmd, [], function(erro, listagem){
-
-  if (erro){
-    res.send(erro);
-  }
-
-  res.render('autores-lista', {resultado: listagem});
+  db.query('SELECT IdAutor, NoAutor, NoNacionalidade FROM TbAutor INNER JOIN tbNacionalidade ON TbAutor.IdNacionalidade = tbNacionalidade.IdNacionalidade;', [], function(erro, listagem){
+    if (erro){
+      res.send(erro);
+    }
+    res.render("autores-lista", {resultado: listagem});
   });
 });
 
