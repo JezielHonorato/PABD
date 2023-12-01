@@ -6,7 +6,7 @@ const db = mysql.createConnection({ // constante db - cria conexão do msql e pa
     user: 'root', // usuario root
     password: '', 
     port: 3306,
-    database: 'bibliotecajeziel',
+    database: 'animatronics',
     multipleStatements: true //true = executa varios comandos ao mesmo tempo se pedir
 });
 

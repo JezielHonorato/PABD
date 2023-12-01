@@ -2,13 +2,13 @@ let express = require('express');
 let router = express.Router();
 let db = require('../utils/db');
 
-router.get('/cadastro-cliente', function(req, res){
+router.get('/cadastrar', function(req, res){
   res.render('cadastroCliente');
 })
 
 
-router.get('/listar-cliente', function(req, res) {
-  let cmd = 'SELECT * FROM tbcliente ORDER BY nomecliente';
+router.get('/listar', function(req, res) {
+  let cmd = 'SELECT * FROM tbcliente ORDER BY cliente';
   db.query(cmd, [], function(erro, listagem){
     if (erro){
       res.send(erro);
