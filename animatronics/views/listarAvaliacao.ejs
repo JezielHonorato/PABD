@@ -12,25 +12,33 @@
 
 <body>
 
-    <h2>Lista de espécies</h2>
+    <h2>Lista de Avaliações</h2>
+
+    <a href="http://localhost:3000/avaliacoes/cadastrar"><button type="button" class="btn btn-success">Inserir uma Avaliação</button></a>
 
     <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Espécie</th>
+            <th scope="col">Avaliação</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Animatronic</th>
           </tr>
         </thead>
         <tbody>
-    
-    
           <% for (item of resultado) {%>
             <tr>
               <td scope="row">
-                <%= item.idEspecie%>
+                <%= item.idAvaliacao%>
               </td>
               <td scope="row">
-                <%= item.especie%>
+                <%= item.avaliacao%>
+              </td>
+              <td scope="row">
+                <%= item.cliente%>
+              </td>
+              <td scope="row">
+                <%= item.animatronic%>
               </td>
             </tr>
             <%}%>

@@ -9,8 +9,7 @@ router.get('/listar', function(req, res) {
     if (erro){
       res.send(erro);
     }
-    /* Criaremos a view autores-lista.ejs no próximo slide*/
-    res.render('listar-animatronic', {resultado: listagem});
+    res.render('listarAnimatronic', {resultado: listagem});
   });
 });
 
