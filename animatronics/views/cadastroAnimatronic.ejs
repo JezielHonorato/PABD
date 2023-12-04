@@ -1,12 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Começando com o Bootstrap</title>
+    <title>Cadastro de Animatronics</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        function getEspecie() {      
+          $.ajax({
+            url: "/especies/json",
+            type: "GET",                  
+            dataType: "json",              
+            success: function (res) {      
+              $("#escolha_especie").html("<option selected>(Informe)</option>");
+              $.each(res.resultado, function (key, value) {
+                $("#escolha_especie").append(               
+                  "<option value=" + value.idEspecie + ">" + value.especie + "</option>"
+                );
+              });
+            },
+          });
+        }
+
+        function getFuncao() {      
+            $.ajax({
+              url: "/funcoes/json",
+              type: "GET",                  
+              dataType: "json",              
+              success: function (res) {      
+                $("#escolha_funcao").html("<option selected>(Informe)</option>");
+                $.each(res.resultado, function (key, value) {
+                  $("#escolha_funcao").append(               
+                    "<option value=" + value.idFuncao + ">" + value.funcao + "</option>"
+                  );
+                });
+              },
+            });
+          }
+
+        getFuncao();
+        getEspecie();
+      });
+      
+
+    </script>
   </head>
+
   <body>
 
     <h2>Cadastro de Animatronics</h2>
@@ -18,17 +60,15 @@
   
     <div class="mb-3">
       <label for="escolha_especie" class="form-label">Escolha a espécie do Animatronic</label>
-      <select class="form-control" id="escolha_especie">
-        <option value=""></option>
-        <option value=""></option>
+      <select class="form-control" id="escolha_especie" name="escolha_especie">
+        <option selected>(Informe)</option>
       </select>
     </div>
 
     <div class="mb-3">
       <label for="escolha_funcao" class="form-label">Escolha a Função do animatronic</label>
-      <select class="form-control" id="escolha_funcao">
-        <option value=""></option>
-        <option value=""></option>
+      <select class="form-control" id="escolha_funcao" name="escolha_funcao">
+        <option selected>(Informe)</option>
       </select>
     </div>
 
