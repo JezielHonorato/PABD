@@ -16,6 +16,19 @@ router.get('/cadastrar', function(req, res){
   res.render('cadastroCliente');
 })
 
+router.post("/cadastrar", function (req, res, next) {
+  let cliente = req.body.cliente;
+  let cpf = req.body.cpf;
+  let cmd = "INSERT INTO tbcliente (cliente, cpf) VALUES (?, ?);";
+  db.query( cmd, [cliente, cpf], function (erro) {
+    if (erro) {
+      res.send(erro);
+    }
+    res.redirect("/clientes/listar");
+    }
+  );
+});
+
 router.get('/json', function(req, res) {
   let cmd = 'SELECT idCliente, cliente FROM tbcliente ORDER BY cliente';
   db.query(cmd, [], function(erro, listagem){
