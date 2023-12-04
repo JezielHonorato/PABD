@@ -16,6 +16,18 @@ router.get('/cadastrar', function(req, res){
   res.render('cadastroEspecie');
 });
 
+router.post("/cadastrar", function (req, res, next) {
+  let especie = req.body.especie;
+  let cmd = "INSERT INTO tbespecie (especie) VALUES (?);";
+  db.query( cmd, [especie], function (erro) {
+    if (erro) {
+      res.send(erro);
+    }
+    res.redirect("/especies/listar");
+    }
+  );
+});
+
 router.get('/json', function(req, res) {
   let cmd = 'SELECT idEspecie, especie FROM tbespecie ORDER BY especie';
   db.query(cmd, [], function(erro, listagem){

@@ -13,6 +13,22 @@ router.get('/listar', function(req, res) {
   });
 });
 
+router.get('/cadastrar', function(req, res){
+  res.render('cadastroFuncao');
+});
+
+router.post("/cadastrar", function (req, res, next) {
+  let funcao = req.body.funcao;
+  let cmd = "INSERT INTO tbfuncao (funcao) VALUES (?);";
+  db.query(cmd, [funcao], function (erro) {
+    if (erro) {
+      res.send(erro);
+    }
+    res.redirect("/funcoes/listar");
+    }
+  );
+});
+
 router.get('/json', function(req, res) {
   let cmd = 'SELECT idFuncao, funcao FROM tbfuncao ORDER BY funcao';
   db.query(cmd, [], function(erro, listagem){
@@ -24,8 +40,5 @@ router.get('/json', function(req, res) {
   });
 });
 
-router.get('/cadastrar', function(req, res){
-  res.render('cadastroFuncao');
-});
 
 module.exports = router;
