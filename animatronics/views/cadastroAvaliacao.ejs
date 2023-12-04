@@ -6,35 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        function getCliente() {      
+          $.ajax({
+            url: "/clientes/json",
+            type: "GET",                  
+            dataType: "json",              
+            success: function (res) {      
+              $("#cliente").html("<option selected>(Informe)</option>");
+              $.each(res.resultado, function (key, value) {
+                $("#cliente").append(               
+                  "<option value=" + value.idCliente + ">" + value.cliente + "</option>"
+                );
+              });
+            },
+          });
+        }
+
+        function getAnimatronic() {      
+            $.ajax({
+              url: "/animatronics/json",
+              type: "GET",                  
+              dataType: "json",              
+              success: function (res) {      
+                $("#animatronic").html("<option selected>(Informe)</option>");
+                $.each(res.resultado, function (key, value) {
+                  $("#animatronic").append(               
+                    "<option value=" + value.idAnimatronic + ">" + value.animatronic + "</option>"
+                  );
+                });
+              },
+            });
+          }
+
+        getCliente();
+        getAnimatronic();
+      });
+    </script>
   </head>
   <body>
 
     <h2>Cadastro de Avaliação</h2>
-    <div class="mb-3">
-      <label for="escolha_cpf" class="form-label">CPF</label>
-      <select class="form-control" id="escolha_cpf">
-        <option value=""></option>
-        <option value=""></option>
-      </select>
-    </div>
 
-    <div class="mb-3">
-      <label for="escolha_animatronic" class="form-label">Animatronic</label>
-      <select class="form-control" id="escolha_animatronic">
-        <option value=""></option>
-        <option value=""></option>
-      </select>
-    </div>
+    <a href="http://localhost:3000/avaliacoes/listar"><button type="button" class="btn btn-success">Voltar</button></a>
 
-    <div class="mb-3">
-      <label for="nota" class="form-label">Nota</label>
-      <select class="form-control" id="nota">
-        <option value=""></option>
-        <option value=""></option>
-      </select>
-    </div>
+    <form method="post" action="/avaliacoes/cadastrar">
+      <div class="mb-3">
+        <label for="cliente" class="form-label">Cliente</label>
+        <select class="form-control" id="cliente" name="cliente" required>
+          <option selected>(Informe)</option>
+        </select>
+      </div>
 
+      <div class="mb-3">
+        <label for="animatronic" class="form-label">Animatronic</label>
+        <select class="form-control" id="animatronic" name="animatronic" required>
+          <option selected>(Informe)</option>
+        </select>
+      </div>
 
+      <div class="mb-3">
+        <label for="avaliacao" class="form-label">Nota</label>
+        <select class="form-control" id="avaliacao" name="avaliacao" required>
+          <option selected>(Informe)</option>
+          <option value="1">1 Estrela</option>
+          <option value="2">2 Estrelas</option>
+          <option value="3">3 Estrelas</option>
+          <option value="4">4 Estrelas</option>
+          <option value="5">5 Estrelas</option>
+        </select>
+      </div>
+
+      <div class="col-6">
+        <button type="submit" class="btn btn-success">Registrar</button>
+      </div>
+    </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>

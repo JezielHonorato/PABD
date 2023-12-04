@@ -12,6 +12,10 @@ router.get('/listar', function(req, res) {
   });
 });
 
+router.get('/cadastrar', function(req, res){
+  res.render('cadastroEspecie');
+});
+
 router.get('/json', function(req, res) {
   let cmd = 'SELECT idEspecie, especie FROM tbespecie ORDER BY especie';
   db.query(cmd, [], function(erro, listagem){
@@ -20,10 +24,6 @@ router.get('/json', function(req, res) {
     }
     res.json({resultado: listagem});
   });
-});
-
-router.get('/cadastrar', function(req, res){
-  res.render('cadastroEspecie');
 });
 
 module.exports = router;

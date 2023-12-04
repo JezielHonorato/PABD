@@ -32,5 +32,15 @@ router.post("/cadastrar", function (req, res, next) {
   );
 });
 
+router.get('/json', function(req, res) {
+  let cmd = 'SELECT idAnimatronic, animatronic FROM tbanimatronics ORDER BY animatronic';
+  db.query(cmd, [], function(erro, listagem){
+    if (erro){
+      res.send(erro);
+    }
+    res.json({resultado: listagem});
+  });
+});
+
 
 module.exports = router;

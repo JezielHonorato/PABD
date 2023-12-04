@@ -45,7 +45,6 @@
         getEspecie();
       });
       
-
     </script>
   </head>
 
@@ -55,28 +54,28 @@
     <a href="http://localhost:3000/animatronics/listar"><button type="button" class="btn btn-success">Voltar</button></a>
 
     <form method="post" action="/animatronics/cadastrar">
+      <div class="mb-3" >
+        <label for="animatronic" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="animatronic" name="animatronic" placeholder="Nome do Animatronic" required>
+      </div>
+    
+      <div class="mb-3">
+        <label for="especie" class="form-label">Escolha a espécie do Animatronic</label>
+        <select class="form-control" id="especie" name="especie" required>
+          <option selected>(Informe)</option>
+        </select>
+      </div>
 
-    <div class="mb-3" >
-      <label for="animatronic" class="form-label">Nome</label>
-      <input type="text" class="form-control" id="animatronic" name="animatronic" placeholder="Nome do Animatronic" required>
-    </div>
-  
-    <div class="mb-3">
-      <label for="especie" class="form-label">Escolha a espécie do Animatronic</label>
-      <select class="form-control" id="especie" name="especie" required>
-        <option selected>(Informe)</option>
-      </select>
-    </div>
+      <div class="mb-3">
+        <label for="funcao" class="form-label">Escolha a Função do animatronic</label>
+        <select class="form-control" id="funcao" name="funcao"  required>
+          <option selected>(Informe)</option>
+        </select>
+      </div>
 
-    <div class="mb-3">
-      <label for="funcao" class="form-label">Escolha a Função do animatronic</label>
-      <select class="form-control" id="funcao" name="funcao"  required>
-        <option selected>(Informe)</option>
-      </select>
-    </div>
-
-    <div class="col-6">
-      <button type="submit" class="btn btn-success">Registrar</button>
+      <div class="col-6">
+        <button type="submit" class="btn btn-success">Registrar</button>
+      </div>
   </form>
 
 
