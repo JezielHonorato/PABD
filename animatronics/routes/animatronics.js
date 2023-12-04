@@ -17,21 +17,20 @@ router.get('/listar', function(req, res) {
 router.get('/cadastrar', function(req, res) {
   res.render('cadastroAnimatronic')
 });
-/*
-router.post('/add', function(req, res) {
-  let nome = req.body.name
-  let nacionalidade = req.body.nacionalidade
 
-  let cmd = 'INSERT INTO TbAutor (NoAutor, TdNacionalidade) VALUES (?, ?)';
-  db.query(cmd, [nome, nacionalidade], function(erro){
-
-  if (erro){
-    res.send(erro);
-  }
-
-  res.redirect('/autores/listar');
-  });
-});*/
+router.post("/cadastrar", function (req, res, next) {
+  let animatronic = req.body.animatronic;
+  let especie = req.body.especie;
+  let funcao = req.body.funcao;
+  let cmd = "INSERT INTO tbanimatronics (animatronic, idespecie, idfuncao) VALUES (?, ?, ?);";
+  db.query( cmd, [animatronic, especie, funcao], function (erro) {
+    if (erro) {
+      res.send(erro);
+    }
+    res.redirect("/animatronics/listar");
+    }
+  );
+});
 
 
 module.exports = router;

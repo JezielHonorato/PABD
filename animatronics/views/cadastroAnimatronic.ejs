@@ -15,9 +15,9 @@
             type: "GET",                  
             dataType: "json",              
             success: function (res) {      
-              $("#escolha_especie").html("<option selected>(Informe)</option>");
+              $("#especie").html("<option selected>(Informe)</option>");
               $.each(res.resultado, function (key, value) {
-                $("#escolha_especie").append(               
+                $("#especie").append(               
                   "<option value=" + value.idEspecie + ">" + value.especie + "</option>"
                 );
               });
@@ -31,9 +31,9 @@
               type: "GET",                  
               dataType: "json",              
               success: function (res) {      
-                $("#escolha_funcao").html("<option selected>(Informe)</option>");
+                $("#funcao").html("<option selected>(Informe)</option>");
                 $.each(res.resultado, function (key, value) {
-                  $("#escolha_funcao").append(               
+                  $("#funcao").append(               
                     "<option value=" + value.idFuncao + ">" + value.funcao + "</option>"
                   );
                 });
@@ -52,25 +52,32 @@
   <body>
 
     <h2>Cadastro de Animatronics</h2>
+    <a href="http://localhost:3000/animatronics/listar"><button type="button" class="btn btn-success">Voltar</button></a>
+
+    <form method="post" action="/animatronics/cadastrar">
 
     <div class="mb-3" >
       <label for="animatronic" class="form-label">Nome</label>
-      <input type="text" class="form-control" id="animatronic" placeholder="Nome do Animatronic">
+      <input type="text" class="form-control" id="animatronic" name="animatronic" placeholder="Nome do Animatronic" required>
     </div>
   
     <div class="mb-3">
-      <label for="escolha_especie" class="form-label">Escolha a espécie do Animatronic</label>
-      <select class="form-control" id="escolha_especie" name="escolha_especie">
+      <label for="especie" class="form-label">Escolha a espécie do Animatronic</label>
+      <select class="form-control" id="especie" name="especie" required>
         <option selected>(Informe)</option>
       </select>
     </div>
 
     <div class="mb-3">
-      <label for="escolha_funcao" class="form-label">Escolha a Função do animatronic</label>
-      <select class="form-control" id="escolha_funcao" name="escolha_funcao">
+      <label for="funcao" class="form-label">Escolha a Função do animatronic</label>
+      <select class="form-control" id="funcao" name="funcao"  required>
         <option selected>(Informe)</option>
       </select>
     </div>
+
+    <div class="col-6">
+      <button type="submit" class="btn btn-success">Registrar</button>
+  </form>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
