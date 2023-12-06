@@ -29,6 +29,17 @@ router.post("/cadastrar", function (req, res, next) {
   );
 });
 
+router.delete('/funcoes/:id', function(req, res) {
+  let id = req.params.id;
+  let cmd = "DELETE FROM tbfuncao WHERE idFuncao = ?;";
+  db.query(cmd, [id], function(erro){
+    if (erro){
+      res.send(erro);
+    }
+    res.redirect(303, '/funcoes/listar');
+  });
+});
+
 router.get('/json', function(req, res) {
   let cmd = 'SELECT idFuncao, funcao FROM tbfuncao ORDER BY funcao';
   db.query(cmd, [], function(erro, listagem){

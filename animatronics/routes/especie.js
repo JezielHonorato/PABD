@@ -28,6 +28,17 @@ router.post("/cadastrar", function (req, res, next) {
   );
 });
 
+router.delete('/especies/:id', function(req, res) {
+  let id = req.params.id;
+  let cmd = "DELETE FROM tbespecie WHERE idEspecie = ?;";
+  db.query(cmd, [id], function(erro){
+    if (erro){
+      res.send(erro);
+    }
+    res.redirect(303, '/especies/listar');
+  });
+});
+
 router.get('/json', function(req, res) {
   let cmd = 'SELECT idEspecie, especie FROM tbespecie ORDER BY especie';
   db.query(cmd, [], function(erro, listagem){

@@ -29,6 +29,17 @@ router.post("/cadastrar", function (req, res, next) {
   );
 });
 
+router.delete('/clientes/:id', function(req, res) {
+  let id = req.params.id;
+  let cmd = "DELETE FROM tbcliente WHERE idCliente = ?;";
+  db.query(cmd, [id], function(erro){
+    if (erro){
+      res.send(erro);
+    }
+    res.redirect(303, '/clientes/listar');
+  });
+});
+
 router.get('/json', function(req, res) {
   let cmd = 'SELECT idCliente, cliente FROM tbcliente ORDER BY cliente';
   db.query(cmd, [], function(erro, listagem){

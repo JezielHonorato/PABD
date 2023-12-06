@@ -32,6 +32,17 @@ router.post("/cadastrar", function (req, res, next) {
   );
 });
 
+router.delete('/delete/:id', function(req, res) {
+  let id = req.params.id;
+  let cmd = "DELETE FROM tbanimatronics WHERE idAnimatronic = ?;";
+  db.query(cmd, [id], function(erro){
+    if (erro){
+      res.send(erro);
+    }
+    res.redirect(303, '/animatronics/listar');
+  });
+});
+
 router.get('/json', function(req, res) {
   let cmd = 'SELECT idAnimatronic, animatronic FROM tbanimatronics ORDER BY animatronic';
   db.query(cmd, [], function(erro, listagem){

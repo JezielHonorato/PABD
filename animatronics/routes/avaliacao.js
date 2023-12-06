@@ -30,4 +30,15 @@ router.post("/cadastrar", function (req, res, next) {
   );
 });
 
+router.delete('/delete/:id', function(req, res) {
+  let id = req.params.id;
+  let cmd = "DELETE FROM tbavaliacao WHERE idAvaliacao = ?;";
+  db.query(cmd, [id], function(erro){
+    if (erro){
+      res.send(erro);
+    }
+    res.redirect(303, '/avaliacoes/listar');
+  });
+});
+
 module.exports = router;
