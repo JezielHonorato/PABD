@@ -10,15 +10,13 @@
   <body>
 
     <h2>Cadastro de Espécie</h2>
-
-    <a href="http://localhost:3000/especies/listar"><button type="button" class="btn btn-success">Voltar</button></a>
-
     <form method="post" action="/especies/cadastrar">
       <div class="mb-3">
         <label for="especie" class="form-label">Espécie</label>
         <input type="text" class="form-control" id="especie" name="especie" placeholder="Espécie do animatronic">
       </div>
       <div class="col-6">
+        <a href="http://localhost:3000/especies/listar"><button type="button" class="btn btn-danger">Voltar</button></a>
         <button type="submit" class="btn btn-success">Registrar</button>
       </div>
     </form>

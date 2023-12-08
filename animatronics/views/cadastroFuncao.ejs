@@ -10,15 +10,13 @@
   <body>
 
     <h2>Cadastro de Função</h2>
-
-    <a href="http://localhost:3000/funcoes/listar"><button type="button" class="btn btn-success">Voltar</button></a>
-
     <form method="post" action="/funcoes/cadastrar">
       <div class="mb-3">
         <label for="funcao" class="form-label">Função</label>
         <input type="text" class="form-control" id="funcao" name="funcao" placeholder="Função do animatronic">
       </div>
       <div class="col-6">
+        <a href="http://localhost:3000/funcoes/listar"><button type="button" class="btn btn-danger">Voltar</button></a>
         <button type="submit" class="btn btn-success">Registrar</button>
       </div>
     </form>
