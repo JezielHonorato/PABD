@@ -1,2 +1,3 @@
 # Ignora as pastas no commit
 biblioteca/*
+biblioteca/views/*
