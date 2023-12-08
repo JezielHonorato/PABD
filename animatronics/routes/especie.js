@@ -28,7 +28,7 @@ router.post("/cadastrar", function (req, res, next) {
   );
 });
 
-router.delete('/especies/:id', function(req, res) {
+router.delete('/delete/:id', function(req, res) {
   let id = req.params.id;
   let cmd = "DELETE FROM tbespecie WHERE idEspecie = ?;";
   db.query(cmd, [id], function(erro){

@@ -29,7 +29,7 @@ router.post("/cadastrar", function (req, res, next) {
   );
 });
 
-router.delete('/funcoes/:id', function(req, res) {
+router.delete('/delete/:id', function(req, res) {
   let id = req.params.id;
   let cmd = "DELETE FROM tbfuncao WHERE idFuncao = ?;";
   db.query(cmd, [id], function(erro){
