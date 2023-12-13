@@ -12,7 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
-    function exclui(idAnimatronic){
+    function excluir(idAnimatronic){
       Swal.fire({
         title: 'Exclusão de Animatronic',
         text: "Deseja realmente excluir este Animatronic?",
@@ -77,7 +77,8 @@
             <%= item.funcao%>
           </td>
           <td scope="row">
-            <button type="button" class="btn btn-danger" onclick = "exclui(<%= item.idAnimatronic%>);">Excluir</button>
+            <a href="/animatronics/edit/<%= item.idAnimatronic %>"><button type="button" class="btn btn-warning">Editar</button></a>
+            <button type="button" class="btn btn-danger" onclick = "excluir(<%= item.idAnimatronic%>);">Excluir</button>
           </td>
         </tr>
       <%}%>

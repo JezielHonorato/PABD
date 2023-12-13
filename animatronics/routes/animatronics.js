@@ -15,10 +15,10 @@ router.get('/listar', function(req, res) {
 
 
 router.get('/cadastrar', function(req, res) {
-  res.render('cadastroAnimatronic')
+  res.render('cadastroAnimatronic', {resultado: {}})
 });
 
-router.post("/cadastrar", function (req, res, next) {
+router.post("/cadastrar", function (req, res) {
   let animatronic = req.body.animatronic;
   let especie = req.body.especie;
   let funcao = req.body.funcao;
@@ -30,6 +30,32 @@ router.post("/cadastrar", function (req, res, next) {
     res.redirect("/animatronics/listar");
     }
   );
+});
+
+router.get('/edit/:id', function(req, res) {
+  let id = req.params.id;
+  let cmd = "SELECT idAnimatronic, animatronic, especie, funcao FROM tbanimatronics AS a INNER JOIN tbfuncao AS f ON a.idfuncao = f.idfuncao INNER JOIN tbespecie AS e ON a.idespecie = e.idespecie WHERE idAnimatronic = ?;";
+  
+  db.query(cmd, [id], function(erro, listagem){
+    if (erro){
+    res.send(erro);
+    }
+  res.render('cadastroAnimatronic', {resultado: listagem[0]});
+  });
+});
+
+router.put('/edit/:id', function(req, res) {
+  let id = req.params.id;
+  let especie = req.body.especie;
+  let funcao = req.body.funcao;
+  
+  let cmd = "UPDATE tbAnimatronics SET animatronic = ?, idEspecie = ?, idFuncao = ? WHERE idAnimatronic = ?;";
+  db.query(cmd, [animatronic, especie, funcao, id], function(erro){
+    if (erro){
+    res.send(erro);
+    }
+      res.redirect(303, '/animatronics/listar');
+  });
 });
 
 router.delete('/delete/:id', function(req, res) {
