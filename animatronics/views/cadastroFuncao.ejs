@@ -6,18 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+      function alterar(idFuncao){
+        $.ajax({
+          url: "/funcoes/edit/" + idFuncao,
+          type: "PUT",
+          data: "funcao=" + $("#funcao").val(),
+          success: function(){
+            $(location).attr('href','/funcoes/listar');
+          }
+        });
+      } 
+    </script>
   </head>
   <body>
+    <% if (resultado.idFuncao) {%>
+      <input type="hidden" id="idEspecie" name="idEspecie" value="<%= resultado.idFuncao %>">
 
-    <h2>Cadastro de Função</h2>
-    <form method="post" action="/funcoes/cadastrar">
+      <h2>Editar Função</h2>
+      <form method="post" action="/funcoes/edit/<%= resultado.idFuncao %>">
+    <% } else{ %>
+      <h2>Cadastro de Função</h2>
+      <form method="post" action="/funcoes/cadastrar">
+    <% } %>
       <div class="mb-3">
         <label for="funcao" class="form-label">Função</label>
+      <% if (resultado.idFuncao) {%>
+        <input type="text" class="form-control" id="funcao" name="funcao" placeholder="Função do animatronic" value="<%= resultado.funcao %>">
+      <% } else{ %>
         <input type="text" class="form-control" id="funcao" name="funcao" placeholder="Função do animatronic">
+      <% } %>
       </div>
       <div class="col-6">
         <a href="http://localhost:3000/funcoes/listar"><button type="button" class="btn btn-danger">Voltar</button></a>
-        <button type="submit" class="btn btn-success">Registrar</button>
+        <% if (resultado.idFuncao) {%>
+          <button type="button" onclick = "alterar(<%= resultado.idFuncao %>);" class="btn btn-primary">Salvar</button>
+        <% } else{ %>
+          <button type="submit" class="btn btn-success">Registrar</button>
+        <% } %>
       </div>
     </form>
 

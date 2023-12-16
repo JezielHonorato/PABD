@@ -69,6 +69,7 @@
             <%= item.especie%>
           </td>
           <td scope="row">
+            <a href="/especies/edit/<%= item.idEspecie %>"><button type="button" class="btn btn-warning">Editar</button></a>
             <button type="button" class="btn btn-danger" onclick = "excluir(<%= item.idEspecie %>);">Excluir</button>
           </td>
         </tr>

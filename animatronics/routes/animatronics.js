@@ -38,7 +38,7 @@ router.get('/edit/:id', function(req, res) {
   
   db.query(cmd, [id], function(erro, listagem){
     if (erro){
-    res.send(erro);
+      res.send(erro);
     }
   res.render('cadastroAnimatronic', {resultado: listagem[0]});
   });

@@ -14,7 +14,7 @@ router.get('/listar', function(req, res) {
 });
 
 router.get('/cadastrar', function(req, res){
-  res.render('cadastroFuncao');
+  res.render('cadastroFuncao', {resultado: {}});
 });
 
 router.post("/cadastrar", function (req, res, next) {
@@ -27,6 +27,31 @@ router.post("/cadastrar", function (req, res, next) {
     res.redirect("/funcoes/listar");
     }
   );
+});
+
+router.get('/edit/:id', function(req, res) {
+  let id = req.params.id;
+  let cmd = "SELECT idFuncao, funcao FROM tbfuncao WHERE idFuncao = ?;";
+  
+  db.query(cmd, [id], function(erro, listagem){
+    if (erro){
+      res.send(erro);
+    }
+  res.render('cadastroFuncao', {resultado: listagem[0]});
+  });
+});
+
+router.put('/edit/:id', function(req, res) {
+  let id = req.params.id;
+  let funcao = req.body.funcao;
+  
+  let cmd = "UPDATE tbfuncao SET funcao = ? WHERE idFuncao = ?;";
+  db.query(cmd, [funcao, id], function(erro){
+    if (erro){
+    res.send(erro);
+    }
+      res.redirect(303, '/funcoes/listar');
+  });
 });
 
 router.delete('/delete/:id', function(req, res) {

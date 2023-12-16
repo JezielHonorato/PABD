@@ -13,7 +13,7 @@ router.get('/listar', function(req, res) {
 });
 
 router.get('/cadastrar', function(req, res){
-  res.render('cadastroCliente');
+  res.render('cadastroCliente', {resultado:{}});
 })
 
 router.post("/cadastrar", function (req, res, next) {
@@ -27,6 +27,32 @@ router.post("/cadastrar", function (req, res, next) {
     res.redirect("/clientes/listar");
     }
   );
+});
+
+router.get('/edit/:id', function(req, res) {
+  let id = req.params.id;
+  let cmd = "SELECT idCliente, cliente, CPF FROM tbcliente WHERE idCliente = ?;";
+  
+  db.query(cmd, [id], function(erro, listagem){
+    if (erro){
+      res.send(erro);
+    }
+  res.render('cadastroCliente', {resultado: listagem[0]});
+  });
+});
+
+router.put('/edit/:id', function(req, res) {
+  let id = req.params.id;
+  let cliente = req.body.cliente;
+  let CPF = req.body.cpf;
+  
+  let cmd = "UPDATE tbcliente SET cliente = ?, CPF = ? WHERE idCliente = ?;";
+  db.query(cmd, [cliente, CPF, id], function(erro){
+    if (erro){
+    res.send(erro);
+    }
+      res.redirect(303, '/clientes/listar');
+  });
 });
 
 router.delete('/delete/:id', function(req, res) {

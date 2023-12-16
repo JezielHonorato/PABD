@@ -68,6 +68,7 @@
             <%= item.funcao%>
           </td>
           <td scope="row">
+            <a href="/funcoes/edit/<%= item.idFuncao %>"><button type="button" class="btn btn-warning">Editar</button></a>
             <button type="button" class="btn btn-danger" onclick = "excluir(<%= item.idFuncao%>);">Excluir</button>
           </td>
         </tr>

@@ -73,6 +73,7 @@
             <%= item.CPF%>
           </td>
           <td scope="row">
+            <a href="/clientes/edit/<%= item.idCliente %>"><button type="button" class="btn btn-warning">Editar</button></a>
             <button type="button" class="btn btn-danger" onclick = "exclui(<%= item.idCliente%>);">Excluir</button>
           </td>
         </tr>
