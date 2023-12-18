@@ -16,7 +16,7 @@
             dataType: "json",              
             success: function (res) {      
               $("#especie").html("<option selected>(Informe)</option>");
-              $.each(res.resultado, function (key, value) {
+              $.each(res.resultado, function (key, value){
                 $("#especie").append(               
                   "<option value=" + value.idEspecie + ">" + value.especie + "</option>"
                 );
@@ -26,23 +26,51 @@
         }
 
         function getFuncao() {      
-            $.ajax({
-              url: "/funcoes/json",
-              type: "GET",                  
-              dataType: "json",              
-              success: function (res) {      
-                $("#funcao").html("<option selected>(Informe)</option>");
-                $.each(res.resultado, function (key, value) {
-                  $("#funcao").append(               
-                    "<option value=" + value.idFuncao + ">" + value.funcao + "</option>"
-                  );
-                });
-              },
-            });
-          }
+          $.ajax({
+            url: "/funcoes/json",
+            type: "GET",                  
+            dataType: "json",              
+            success: function (res) {      
+              $("#funcao").html("<option selected>(Informe)</option>");
+              $.each(res.resultado, function (key, value){
+                $("#funcao").append(               
+                  "<option value=" + value.idFuncao + ">" + value.funcao + "</option>"
+                );
+              });
+            },
+          });
+        }
 
-        getFuncao();
-        getEspecie();
+        function setFuncao() {      
+          $.ajax({
+            success: function (res){      
+              let funcao = $("#idFuncao").val();
+              $("#funcao option").each(function(){
+                if ($(this).val() == funcao){
+                  $("#funcao option[value='" + funcao + "']").attr('selected', 'selected');
+                }
+              })
+            },
+          });
+        }
+
+        function setEspecie() {      
+          $.ajax({
+            success: function (res){      
+              let especie = $("#idEspecie").val();
+              $("#especie option").each(function(){
+                if ($(this).val() == especie){
+                  $("#especie option[value='" + especie + "']").attr('selected', 'selected');
+                }
+              })
+            },
+          });
+        }
+    
+      getFuncao();
+      getEspecie();
+      setFuncao();
+      setEspecie();
       });
 
       function alterar(idAnimatronic){
@@ -61,7 +89,8 @@
 
   <body>
     <% if (resultado.idAnimatronic) {%>
-      <input type="hidden" id="idAnimatronic" name="idAnimatronic" value="<%= resultado.idAnimatronic%>">
+      <input type="hidden" id="idFuncao" name="idFuncao" value="<%= resultado.idFuncao%>">
+      <input type="hidden" id="idEspecie" name="idEspecie" value="<%= resultado.idEspecie%>">
 
       <h1>Alterar Animatronics</h1>
       <form method="#" action = "/animatronics/edit/<%= resultado.idAnimatronic %>" class="row g-3">
@@ -80,27 +109,18 @@
   
       <div class="mb-3">
         <label for="especie" class="form-label">Escolha a espécie do Animatronic</label>
-        <% if (resultado.idAnimatronic) {%>
-          <input type="text" class="form-control" id="especie" name="especie" value="<%= resultado.especie %>">
-        <%} else {%>
-          <select class="form-control" id="especie" name="especie" required>
-            <option selected>(Informe)</option>
-          </select>
-        <%}%>
+        <select class="form-control" id="especie" name="especie" required>
+        </select>
       </div>
 
       <div class="mb-3">
         <label for="funcao" class="form-label">Escolha a Função do animatronic</label>
-        <% if (resultado.idAnimatronic) {%>
-          <input type="text" class="form-control" id="funcao" name="funcao" value="<%= resultado.funcao %>">
-        <%} else {%>
         <select class="form-control" id="funcao" name="funcao" required>
-          <option selected>(Informe)</option>
         </select>
-        <%}%>
       </div>
 
       <div class="col-6">
+        <a href="http://localhost:3000/avaliacoes/listar"><button type="button" class="btn btn-danger">Voltar</button></a>
         <% if (resultado.idAnimatronic) {%>
           <button type="button" onclick = "alterar(<%= resultado.idAnimatronic %>);" class="btn btn-primary">Salvar</button>
         <%} else {%>

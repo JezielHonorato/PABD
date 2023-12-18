@@ -34,7 +34,7 @@ router.post("/cadastrar", function (req, res) {
 
 router.get('/edit/:id', function(req, res) {
   let id = req.params.id;
-  let cmd = "SELECT idAnimatronic, animatronic, especie, funcao FROM tbanimatronics AS a INNER JOIN tbfuncao AS f ON a.idfuncao = f.idfuncao INNER JOIN tbespecie AS e ON a.idespecie = e.idespecie WHERE idAnimatronic = ?;";
+  let cmd = "SELECT idAnimatronic, animatronic, idFuncao, idEspecie  FROM tbanimatronics WHERE idAnimatronic = ?;";
   
   db.query(cmd, [id], function(erro, listagem){
     if (erro){
@@ -48,6 +48,7 @@ router.put('/edit/:id', function(req, res) {
   let id = req.params.id;
   let especie = req.body.especie;
   let funcao = req.body.funcao;
+  let animatronic = req.body.animatronic;
   
   let cmd = "UPDATE tbAnimatronics SET animatronic = ?, idEspecie = ?, idFuncao = ? WHERE idAnimatronic = ?;";
   db.query(cmd, [animatronic, especie, funcao, id], function(erro){

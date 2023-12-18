@@ -30,6 +30,34 @@ router.post("/cadastrar", function (req, res, next) {
   );
 });
 
+router.get('/edit/:id', function(req, res) {
+  let id = req.params.id;
+  let cmd = "SELECT idAvaliacao, idCliente, idAnimatronic, avaliacao  FROM tbavaliacao WHERE idAvaliacao = ?;";
+
+  db.query(cmd, [id], function(erro, listagem){
+    if (erro){
+      res.send(erro);
+    }
+  res.render('cadastroAvaliacao', {resultado: listagem[0]});
+  });
+});
+
+router.put('/edit/:id', function(req, res) {
+  let id = req.params.id;
+  let cliente = req.body.cliente;
+  let animatronic = req.body.animatronic;
+  let avaliacao = req.body.avaliacao;
+  
+  let cmd = "UPDATE tbAvaliacao SET avaliacao = ?, idAnimatronic = ?, idCliente = ? WHERE idAvaliacao = ?;";
+  db.query(cmd, [avaliacao, animatronic, cliente, id], function(erro){
+    if (erro){
+    res.send(erro);
+    }
+      res.redirect(303, '/avaliacoes/listar');
+  });
+});
+
+
 router.delete('/delete/:id', function(req, res) {
   let id = req.params.id;
   let cmd = "DELETE FROM tbavaliacao WHERE idAvaliacao = ?;";
